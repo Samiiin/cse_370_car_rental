@@ -36,6 +36,8 @@ class Reservation(models.Model):
     customer = models.ForeignKey(CustomUser,on_delete = models.CASCADE, related_name = 'reservations')
     pickup = models.DateTimeField()
     hours = models.IntegerField(default = 1)
+    def __str__(self):
+        return f"{self.id}:{self.car.name} for {self.customer.username}"
 
 class Payment(models.Model):
     customer = models.ForeignKey(CustomUser,on_delete = models.CASCADE, related_name = 'payments')
@@ -58,3 +60,5 @@ class Payment(models.Model):
     # Define fields for the reservation model
     # Other fields go here like user, car, rental dates, etc.
     payment_method = models.CharField(max_length=20, choices=PAYMENT_METHOD_CHOICES)
+    def __str__(self):
+        return f"{self.id}:payment for {self.customer.username} payment_status : {self.payment_status}"
